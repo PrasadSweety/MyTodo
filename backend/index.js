@@ -22,4 +22,12 @@ app.use(cors(corsOptions));
 
 app.use("/tasks", DataRoute);
 
-app.listen(process.env.PORT);
+const PORT = process.env.PORT || 8080;
+
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("frontend/build"));
+}
+
+app.listen(PORT, () => {
+  console.log(`Server is connected to port no ${PORT}`);
+});
